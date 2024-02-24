@@ -1,3 +1,4 @@
+// https://www.baeldung.com/spring-boot-console-app
 package ca.saultcollege.csd226.example.InversionOfControl.withSpring;
 
 import ca.saultcollege.csd226.example.InversionOfControl.withSpring.services.*;
@@ -41,5 +42,9 @@ public class InversionOfControlApplication implements CommandLineRunner {
 		emailPrinter2.printMessage();
 		MessagePrinter smsPrinter2 = context.getBean("smsPrinter",MessagePrinter.class);
 		smsPrinter2.printMessage();
+
+		MessagePrinter emailPrinter3 = new MessagePrinter(context.getBean(EmailService.class));
+
+
 	}
 }
