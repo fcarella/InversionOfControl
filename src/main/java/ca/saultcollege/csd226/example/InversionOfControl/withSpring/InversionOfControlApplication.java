@@ -13,6 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 @SpringBootApplication
 public class InversionOfControlApplication implements CommandLineRunner {
+	static ApplicationContext context;
 	private static Logger LOG = LoggerFactory
 			.getLogger(InversionOfControlApplication.class);
 
@@ -26,7 +27,7 @@ public class InversionOfControlApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		LOG.info("EXECUTING : command line runner");
 
-		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		context = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		// Retrieve the MessagePrinter bean from the container
 		MessageService emailService = context.getBean(EmailService.class);
@@ -45,6 +46,13 @@ public class InversionOfControlApplication implements CommandLineRunner {
 
 		MessagePrinter emailPrinter3 = new MessagePrinter(context.getBean(EmailService.class));
 
+		displayAllBeans();
+	}
 
+	public static void displayAllBeans() {
+		String[] allBeanNames = context.getBeanDefinitionNames();
+		for (String beanName : allBeanNames) {
+			System.out.println(beanName);
+		}
 	}
 }
